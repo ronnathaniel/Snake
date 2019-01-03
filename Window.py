@@ -35,13 +35,13 @@ class Window:
 
     def key_press(self):
         press = py.key.get_pressed()
-        if press[py.K_UP] and self.snake.y_speed <= 0:
+        if (press[py.K_UP] or press[py.K_w]) and self.snake.y_speed <= 0:
             self.snake.move_up()
-        if press[py.K_DOWN] and self.snake.y_speed >= 0:
+        if (press[py.K_DOWN] or press[py.K_s]) and self.snake.y_speed >= 0:
             self.snake.move_down()
-        if press[py.K_RIGHT] and self.snake.x >= 0:
+        if (press[py.K_RIGHT] or press[py.K_d]) and self.snake.x >= 0:
             self.snake.move_right()
-        if press[py.K_LEFT] and self.snake.x_speed <= 0:
+        if (press[py.K_LEFT] or press[py.K_a]) and self.snake.x_speed <= 0:
             self.snake.move_left()
 
     def events(self):
