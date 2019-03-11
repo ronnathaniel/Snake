@@ -6,42 +6,42 @@ class Window:
             self.main()
 
     def pygame_setup(self):
-        py.init()
-        self.screen = py.display.set_mode((400, 400))
+        pg.init()
+        self.screen = pg.display.set_mode((400, 400))
         # creates GUI
-        py.display.set_caption("")
+        pg.display.set_caption("")
 
     def draw_background(self):
         surface = self.screen
         color = (0, 0, 0)
-        rect = py.Rect(0, 0, 400, 410)
-        py.draw.rect(surface, color, rect)
+        rect = pg.Rect(0, 0, 400, 410)
+        pg.draw.rect(surface, color, rect)
         for i in range(21):
-            py.draw.line(self.screen, (255,255, 255), (20*i, 0), (20*i, 400))
-            py.draw.line(self.screen, (255, 255,255), (0, 20*i), (400, 20*i))
+            pg.draw.line(self.screen, (255,255, 255), (20*i, 0), (20*i, 400))
+            pg.draw.line(self.screen, (255, 255,255), (0, 20*i), (400, 20*i))
 
     def draw_snake(self):
         surface = self.screen
         color = (0, 255, 0)
         for spot in self.snake.stack:
-            rect = py.Rect(spot[0]+1, spot[1]+1, 19, 19)
-            py.draw.rect(surface, color, rect)
+            rect = pg.Rect(spot[0]+1, spot[1]+1, 19, 19)
+            pg.draw.rect(surface, color, rect)
 
     def draw_food(self):
         surface = self.screen
         color = (255, 0, 0)
-        rect = py.Rect(self.food.x+1, self.food.y+1, 19, 19)
-        py.draw.rect(surface, color, rect)
+        rect = pg.Rect(self.food.x+1, self.food.y+1, 19, 19)
+        pg.draw.rect(surface, color, rect)
 
     def key_press(self):
-        press = py.key.get_pressed()
-        if (press[py.K_UP] or press[py.K_w]) and self.snake.y_speed <= 0:
+        press = pg.key.get_pressed()
+        if (press[pg.K_UP] or press[pg.K_w]) and self.snake.y_speed <= 0:
             self.snake.move_up()
-        if (press[py.K_DOWN] or press[py.K_s]) and self.snake.y_speed >= 0:
+        if (press[pg.K_DOWN] or press[pg.K_s]) and self.snake.y_speed >= 0:
             self.snake.move_down()
-        if (press[py.K_RIGHT] or press[py.K_d]) and self.snake.x >= 0:
+        if (press[pg.K_RIGHT] or press[pg.K_d]) and self.snake.x >= 0:
             self.snake.move_right()
-        if (press[py.K_LEFT] or press[py.K_a]) and self.snake.x_speed <= 0:
+        if (press[pg.K_LEFT] or press[pg.K_a]) and self.snake.x_speed <= 0:
             self.snake.move_left()
 
     def events(self):
@@ -58,13 +58,13 @@ class Window:
 
     def main(self):
         while True:
-            for event in py.event.get():
-                if event.type == py.QUIT:
+            for event in pg.event.get():
+                if event.type == pg.QUIT:
                     break
-            if py.key.get_pressed()[py.K_ESCAPE]:
+            if pg.key.get_pressed()[pg.K_ESCAPE]:
                 break
 
-            py.display.flip()
+            pg.display.flip()
             self.key_press()
             self.snake.update()
             self.draw_background()
@@ -72,11 +72,11 @@ class Window:
             self.draw_food()
             self.events()
 
-            py.time.Clock().tick(15 + len(self.snake.stack)/1.5)
+            pg.time.Clock().tick(15 + len(self.snake.stack)/1.5)
 
 
 if __name__ == "__main__":
-    import pygame as py
+    import pygame as pg
     from snaek.Snake import Snake
     from snaek.Food import Food
     import time
